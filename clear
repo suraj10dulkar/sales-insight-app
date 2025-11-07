@@ -1,0 +1,30 @@
+[33mcommit fbf95592b26c5cdde6e954d2b9bdd2c2e50e4b6e[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m
+Author: Sujan10dulkar <tendulkarsujan@gmail.com>
+Date:   Fri Nov 7 19:09:00 2025 +0530
+
+    chore: add browserslist and caniuse-lite as devDependencies
+
+[33mcommit f96192df8c86e101cce8a5733f76000b42c6b4b3[m
+Merge: 877a888 584fb09
+Author: Sujan10dulkar <tendulkarsujan@gmail.com>
+Date:   Fri Nov 7 19:03:12 2025 +0530
+
+    Merge branch 'master'
+
+[33mcommit 584fb09a733062b599c9365e5d7e92e87a343464[m[33m ([m[1;31morigin/master[m[33m, [m[1;32mmaster[m[33m)[m
+Author: Sujan10dulkar <tendulkarsujan@gmail.com>
+Date:   Fri Nov 7 18:50:30 2025 +0530
+
+    Added My new sales-insight app with with all component page and routes
+
+[33mcommit 0579da39f12301b545b2179ec681ade0ee8474f3[m
+Author: Sujan10dulkar <tendulkarsujan@gmail.com>
+Date:   Fri Nov 7 00:50:21 2025 +0530
+
+    Initialize project using Create React App
+
+[33mcommit 877a888a2c7a68ab21a022808e05f37be80c712c[m
+Author: Suraj S Tendulkar <102608955+suraj10dulkar@users.noreply.github.com>
+Date:   Sat Nov 12 22:09:08 2022 +0530
+
+    Update README.md
