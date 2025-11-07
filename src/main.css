@@ -1,0 +1,134 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    /* Use default indigo-50 for compatibility with Tailwind utilities during @apply */
+    @apply bg-gradient-to-br from-indigo-50 via-white to-white min-h-screen text-gray-800;
+    font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+  }
+}
+
+@layer components {
+  .app-container {
+    @apply max-w-6xl mx-auto bg-white/60 backdrop-blur-sm rounded-2xl p-6 shadow-lg;
+  }
+
+  .card {
+    @apply bg-white rounded-xl p-4 shadow-lg-soft transition-transform transform hover:-translate-y-1 hover:shadow-xl;
+  }
+
+  .card-title { @apply text-sm text-gray-500 }
+  .card-value { @apply mt-2 text-2xl font-bold text-gray-900 }
+
+  .btn {
+    @apply inline-flex items-center gap-2 px-4 py-2 rounded-lg text-white bg-gradient-to-r from-indigo-600 to-indigo-400 shadow hover:opacity-95;
+  }
+
+  .section-title { @apply text-lg font-semibold text-gray-800 mb-2 }
+}
+
+/* small utility shadow definition fallback */
+@layer utilities {
+  .shadow-lg-soft { box-shadow: 0 10px 30px rgba(16,24,40,0.08); }
+}
+
+/* typing effect (for small headline) */
+.typing {
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: 2px solid rgba(255,255,255,0.9);
+  animation:
+    typing 1.8s steps(20, end),
+    blink-caret 1s step-end infinite;
+  font-weight: 700;
+}
+
+/* typing keyframes */
+@keyframes typing {
+  from { width: 0; }
+  to { width: 14ch; } /* adjust to fit text length */
+}
+@keyframes blink-caret {
+  50% { border-color: transparent; }
+}
+
+/* fade-in for subtext */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in {
+  animation: fadeIn 800ms ease-out both;
+}
+
+/* slow pulse for left icon */
+@keyframes pulseSlow {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.06); opacity: 0.9; }
+  100% { transform: scale(1); opacity: 1; }
+}
+.animate-pulse-slow {
+  animation: pulseSlow 2200ms ease-in-out infinite;
+}
+
+/* subtle glassy backgrounds for light/dark modes */
+.bg-white\/3 { background-color: rgba(255,255,255,0.03); }
+.bg-white\/5 { background-color: rgba(255,255,255,0.05); }
+.bg-white\/6 { background-color: rgba(255,255,255,0.06); }
+.bg-white\/10 { background-color: rgba(255,255,255,0.10); }
+
+/* small utility to allow border opacity classes in Tailwind-less setups */
+.border-white\/30 { border-color: rgba(255,255,255,0.30); }
+.border-white\/90 { border-color: rgba(255,255,255,0.90); }
+
+/* hero blob animation */
+@keyframes blob {
+  0% { transform: translate(0px, 0px) scale(1); }
+  33% { transform: translate(10px, -8px) scale(1.04); }
+  66% { transform: translate(-6px, 6px) scale(0.98); }
+  100% { transform: translate(0px, 0px) scale(1); }
+}
+.animate-blob {
+  animation: blob 8s ease-in-out infinite;
+}
+
+/* slight card backdrop shadow */
+.backdrop-blur-md { backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+
+/* small utility to allow white/8 if not in tailwind config */
+.bg-white\/8 { background-color: rgba(255,255,255,0.08); }
+
+/* ImageRotator styling */
+.image-rotator-container .rotator-window {
+  background: linear-gradient(180deg, #ffffff 0%, #fbfbfd 100%);
+}
+
+/* small card shadow */
+.image-rotator-container .rotator-window {
+  box-shadow: 0 6px 20px rgba(15, 23, 42, 0.08);
+}
+
+/* fade-in each image when it appears */
+.rotator-item img {
+  opacity: 0;
+  animation: imgFadeIn 700ms ease forwards;
+}
+
+@keyframes imgFadeIn {
+  from { opacity: 0; transform: translateY(6px) scale(1); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* responsive: show fewer images on small screens */
+@media (max-width: 1024px) {
+  .rotator-item img { height: 36vw; } /* keep images visible */
+}
+@media (max-width: 640px) {
+  .rotator-item img { height: 44vw; }
+}
+
