@@ -1,15 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 
-/**
- * ImageRotator
- * - shows a sliding window of images side-by-side
- * - every 5s the window advances by 1 image (wraps around)
- * - props:
- *    visibleCount (number) - how many images shown side-by-side (default 5)
- *    intervalMs (number) - how often to rotate in ms (default 5000)
- */
 export default function ImageRotator({ visibleCount = 5, intervalMs = 5000 }) {
-  // 10 curated Unsplash image queries (business / excel / analytics / meeting)
   const images = [
     "image/image_1.webp",
     "image/image_2.png",
@@ -24,35 +15,55 @@ export default function ImageRotator({ visibleCount = 5, intervalMs = 5000 }) {
   ];
 
   const [startIndex, setStartIndex] = useState(0);
+  const [visible, setVisible] = useState(visibleCount);
   const timerRef = useRef(null);
 
+  // 🔹 Detect screen size and adjust visible image count dynamically
   useEffect(() => {
-    // rotate index every intervalMs
+    const handleResize = () => {
+      if (window.innerWidth < 640) {
+        // Mobile screens (<640px) → show 1 image
+        setVisible(1);
+      } else {
+        // Larger screens → show default count (5)
+        setVisible(visibleCount);
+      }
+    };
+
+    handleResize(); // run once at mount
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [visibleCount]);
+
+  // 🔹 Rotate every intervalMs
+  useEffect(() => {
     timerRef.current = setInterval(() => {
       setStartIndex((s) => (s + 1) % images.length);
     }, intervalMs);
-
     return () => clearInterval(timerRef.current);
   }, [intervalMs, images.length]);
 
-  // produce the current slice of images to display (wrap-around)
+  // 🔹 Select images to display
   const windowImgs = [];
-  for (let i = 0; i < visibleCount; i++) {
+  for (let i = 0; i < visible; i++) {
     const idx = (startIndex + i) % images.length;
     windowImgs.push({ src: images[idx], alt: `Business image ${idx + 1}` });
   }
 
   return (
     <div className="image-rotator-container max-w-7xl mx-auto px-6 my-8">
-      <div className="rotator-header flex items-center justify-between mb-3">
-        <h3 className="text-lg font-semibold text-slate-700">Visual Stories — Business & Data</h3>
-        <div className="text-sm text-slate-500">Fresh images rotate every 5s • curated for data & meetings</div>
+      <div className="rotator-header flex flex-col sm:flex-row sm:items-center sm:justify-between mb-3">
+        <h3 className="text-lg font-semibold text-slate-700">
+          Visual Stories — Business & Data
+        </h3>
+        <div className="text-sm text-slate-500 mt-1 sm:mt-0">
+          Fresh images rotate every 5s • curated for data & meetings
+        </div>
       </div>
 
       <div className="rotator-window overflow-hidden rounded-xl shadow-md bg-white">
         <div
           className="rotator-track flex gap-3 p-4 transition-transform duration-700 ease-out"
-          // small translate for subtle slide (CSS handles fade)
           style={{ transform: `translateX(0)` }}
         >
           {windowImgs.map((img, i) => (
@@ -64,9 +75,8 @@ export default function ImageRotator({ visibleCount = 5, intervalMs = 5000 }) {
               <img
                 src={img.src}
                 alt={img.alt}
-                className="w-full h-72 object-cover transform hover:scale-105 transition-transform duration-500"
+                className="w-full h-72 sm:h-64 object-cover transform hover:scale-105 transition-transform duration-500"
                 onError={(e) => {
-                  // fallback: remove broken src to avoid broken image icon
                   e.currentTarget.style.display = "none";
                 }}
               />

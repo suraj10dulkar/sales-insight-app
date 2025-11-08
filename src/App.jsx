@@ -1,6 +1,6 @@
 // src/App.jsx
 import React, { useEffect, useState } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 import Hero from "./components/Hero";
 import FileUploader from "./components/FileUploader";
@@ -10,15 +10,7 @@ import { normalizeRows } from "./utils/parse";
 import ImageRotator from "./components/ImageRotator";
 import Footer from "./components/Footer";
 import AppointmentModal from "./components/AppointmentModal";
-import AppointmentBookingPage from "./pages/AppointmentBookingPage"; // new page
-
-/**
- * App.jsx (router-enabled)
- *
- * Routes:
- *  - "/" -> main dashboard layout
- *  - "/book-appointment" -> booking page (standalone)
- */
+import AppointmentBookingPage from "./pages/AppointmentBookingPage";
 
 export default function App() {
   const [rows, setRows] = useState([]);
@@ -88,8 +80,8 @@ export default function App() {
         {/* Booking page route */}
         <Route path="/book-appointment" element={<AppointmentBookingPage />} />
 
-        {/* Optional: catch-all -> redirect to root (keeps SPA experience) */}
-        <Route path="*" element={<div /> } />
+        {/* Catch-all -> redirect to root (prevents blank pages) */}
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>
   );

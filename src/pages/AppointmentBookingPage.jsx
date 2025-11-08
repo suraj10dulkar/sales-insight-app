@@ -249,13 +249,13 @@ export default function AppointmentBookingPage() {
           </div>
 
           <div className="flex items-center gap-3">
-            <button
+            {/* <button
               type="button"
               onClick={downloadICS}
               className="px-4 py-2 rounded-md bg-white border hover:bg-gray-50"
             >
               Download Calendar Invite
-            </button>
+            </button> */}
 
             <button
               type="submit"
